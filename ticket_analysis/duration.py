@@ -3,8 +3,8 @@ from datetime import datetime
 from datetime import date
 from datetime import timedelta
 import numpy as np
-in_path = r'C:\Users\praveen.manivannan\OneDrive - Ultragenic Research and Technologies Limited\TicketStatus\05-JUL\cummulative.csv'
-out_path = r'C:\Users\praveen.manivannan\OneDrive - Ultragenic Research and Technologies Limited\TicketStatus\05-JUL\duration.xlsx'
+in_path = r'C:\Users\praveen.manivannan\OneDrive - Ultragenic Research and Technologies Limited\TicketStatus\ticket_analysis\analysis_file\cummulative.csv'
+out_path = r'C:\Users\praveen.manivannan\OneDrive - Ultragenic Research and Technologies Limited\TicketStatus\ticket_analysis\analysis_fileduration.xlsx'
 dataset = pd.read_csv(in_path)
 duration = pd.DataFrame(columns = ['Created Time','Technician','RequestID','Open','In Progress','Awaiting Approval','Awaiting User','Awaiting Governance','Closed', 'ToAwaitingGovernance','ToClosure'])
 dataset.set_index(['Created Time'])
@@ -44,5 +44,6 @@ for i in duration.index:
         duration.loc[i]['Closed'] = datetime.strptime(temp[0],'%Y-%m-%d %H:%M:%S')
         duration.loc[i]['ToClosure'] = (duration.loc[i]['Closed'] - duration.loc[i]['Created Time'])/pd.Timedelta(days=1)
 duration.to_excel(out_path)
+print("Computing Duration Completed")
     
     
